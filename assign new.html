@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        
+        .hero{
+            width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(45deg,pink,white);
+            color: black;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container{
+            width: 800px;
+            height: 180px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none; /* Initially hide the clock container */
+            flex-direction: column; /* Display clock and button vertically */
+            align-items: center;
+        }
+        .clock{
+            width: 100%;
+            height: 100%;
+            background-color: cornflowerblue;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .clock span{
+            font-size: 80px;
+            width: 110px;
+            display: inline-block;
+            text-align: center;
+            position: relative;
+        }
+        .clock span::after{
+            content: '';
+            font-size: 16px;
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-5%);
+        }
+        #hrs::after{
+            content: 'HOURS';
+        }
+        #min::after{
+            content: 'MINUTES';
+        }
+        #sec::after{
+            content: 'SECONDS';
+        }
+        button {
+            margin-top: 20px; /* Add some margin to separate button from clock */
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>INDIA'S CURRENT TIME!!!</h1>
+        <p>(In 24 hours time)</p>
+        <button id="startButton" type="button">Press Me</button>
+        <p id="sam"></p>
+        <div class="hero" id="sam">
+            <div class="container">
+                <div class="clock">
+                    <span id="hrs">00</span>
+                    <span>:</span>
+                    <span id="min">00</span>
+                    <span>:</span>
+                    <span id="sec">00</span>
+                </div>
+                <button id="stopButton" style="display: none;">Stop</button> <!-- Add a stop button if needed -->
+            </div>
+            <script>
+                let startButton = document.getElementById("startButton");
+                let stopButton = document.getElementById("stopButton");
+                let container = document.querySelector(".container");
+
+                startButton.addEventListener("click", function() {
+                    container.style.display = "flex"; // Show the clock container
+                    startButton.style.display = "none"; // Hide the start button
+                    stopButton.style.display = "block"; // Show the stop button
+                });
+
+                // You can add functionality to stop the clock if needed
+                stopButton.addEventListener("click", function() {
+                    container.style.display = "none"; // Hide the clock container
+                    startButton.style.display = "block"; // Show the start button
+                    stopButton.style.display = "none"; // Hide the stop button
+                });
+
+                let hrs = document.getElementById("hrs");
+                let min = document.getElementById("min");
+                let sec = document.getElementById("sec");
+
+                setInterval(()=>{
+                    let currentTime = new Date();
+
+                    hrs.innerHTML = (currentTime.getHours() < 10 ? "0" : "") + currentTime.getHours();
+                    min.innerHTML = (currentTime.getMinutes() < 10 ? "0" : "") + currentTime.getMinutes();
+                    sec.innerHTML = (currentTime.getSeconds() < 10 ? "0" : "") + currentTime.getSeconds();
+                }, 1000);
+            </script>
+        </div>
+    </div>
+</body> 
+</html>
